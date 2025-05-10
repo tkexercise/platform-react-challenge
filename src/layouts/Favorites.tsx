@@ -35,7 +35,10 @@ const Favorites: React.FC = () => {
               className="relative overflow-hidden rounded-lg shadow-lg transition-all 
               hover:shadow-xl bg-white"
             >
-              <Link to={`/favorites/${favorite.image.id}`} className="block h-64">
+              <Link
+                to={`/favorites/${favorite.image.id}`}
+                className="block h-64 hover:scale-105 transition-all duration-300"
+              >
                 <CatImage cat={favorite.image} className="h-full" />
               </Link>
             </div>

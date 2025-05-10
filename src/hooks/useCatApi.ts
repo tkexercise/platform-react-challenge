@@ -1,6 +1,7 @@
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   addFavorite,
+  fetchBreeds,
   fetchCatById,
   fetchCats,
   getFavorites,
@@ -11,11 +12,11 @@ import { QUERY_KEYS, API_CONFIG } from '../constants';
 export const useGetCats = (limit: number = API_CONFIG.DEFAULT_LIMIT) => {
   return useInfiniteQuery({
     queryKey: [QUERY_KEYS.RANDOM_CATS, limit],
-    queryFn: ({ pageParam = 0 }) => fetchCats(limit, pageParam),
+    queryFn: ({ pageParam }: { pageParam: number }) => fetchCats({ limit, page: pageParam }),
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.length === limit ? allPages.length : undefined;
     },
-    initialPageParam: 0,
+    initialPageParam: API_CONFIG.DEFAULT_PAGE,
   });
 };
 
@@ -51,5 +52,26 @@ export const useRemoveFavorite = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.FAVORITES] });
     },
+  });
+};
+
+export const useBreeds = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.BREEDS],
+    queryFn: fetchBreeds,
+  });
+};
+
+export const useCatsByBreed = (
+  breedId: string | null,
+  limit: number = API_CONFIG.DEFAULT_LIMIT
+) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.BREED_CATS, breedId, limit],
+    queryFn: () => {
+      if (!breedId) throw new Error('Breed ID is required');
+      return fetchCats({ breedId, limit });
+    },
+    enabled: !!breedId,
   });
 };

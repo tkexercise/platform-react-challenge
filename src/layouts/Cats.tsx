@@ -13,7 +13,8 @@ const Cats: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id?: string }>();
 
-  const { data, isError, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetCats();
+  const { data, isError, isLoading, isRefetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useGetCats();
 
   const cats = data?.pages.flatMap((page) => page) ?? [];
 
@@ -28,7 +29,6 @@ const Cats: React.FC = () => {
   };
 
   const handleCloseModal = () => {
-    console.log('handleCloseModal');
     navigate('/');
   };
 
@@ -40,7 +40,7 @@ const Cats: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Discover Cats</h1>
 
-      {isLoading ? (
+      {isLoading || isRefetching ? (
         <Loading />
       ) : (
         <>
@@ -55,7 +55,10 @@ const Cats: React.FC = () => {
                 onClick={() => handleOpenModal(cat.id)}
                 key={`${cat.id}-${index}`}
               >
-                <Link to={`/cat/${cat.id}`} className="block h-64">
+                <Link
+                  to={`/cat/${cat.id}`}
+                  className="block h-64 hover:scale-105 transition-all duration-300"
+                >
                   <CatImage cat={cat} className="h-full" showFavoriteButton={false} />
                 </Link>
               </div>

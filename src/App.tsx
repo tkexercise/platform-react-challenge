@@ -5,6 +5,7 @@ import Cats from './layouts/Cats';
 import { QUERY_CONFIG, ROUTES } from './constants';
 import Header from './components/common/Header';
 import Favorites from './layouts/Favorites';
+import Breeds from './layouts/Breeds';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,6 +27,9 @@ const App: React.FC = () => {
             <Routes>
               <Route path={ROUTES.HOME} element={<Cats />} />
               <Route path={ROUTES.CAT} element={<Cats />} />
+
+              <Route path={ROUTES.BREEDS} element={<Breeds />} />
+              <Route path={ROUTES.BREED_DETAILS} element={<Breeds />} />
 
               <Route path={ROUTES.FAVORITES} element={<Favorites />} />
               <Route path={ROUTES.FAVORITE_CAT} element={<Favorites />} />

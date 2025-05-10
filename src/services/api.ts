@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { type Cat, type FavoriteCat } from '../types';
+import { type Breed, type Cat, type FavoriteCat } from '../types';
 import { API_CONFIG, STORAGE_KEYS } from '../constants';
 import { createId } from '@paralleldrive/cuid2';
 
@@ -43,15 +43,20 @@ catApi.interceptors.response.use(
 );
 
 export const fetchCats = async (
-  limit: number = API_CONFIG.DEFAULT_LIMIT,
-  page: number = API_CONFIG.DEFAULT_PAGE
+  options: {
+    limit?: number;
+    page?: number;
+    breedId?: string;
+  } = {}
 ): Promise<Cat[]> => {
+  const { limit = API_CONFIG.DEFAULT_LIMIT, page = API_CONFIG.DEFAULT_PAGE, breedId } = options;
+
   const response = await catApi.get('/images/search', {
     params: {
       limit,
       page,
+      ...(breedId && { breed_ids: breedId }),
       size: API_CONFIG.IMAGE_SIZES.PREVIEW,
-      has_breeds: 1,
     },
   });
   return response.data;
@@ -61,7 +66,6 @@ export const fetchCatById = async (id: string): Promise<Cat> => {
   const response = await catApi.get(`/images/${id}`, {
     params: {
       size: API_CONFIG.IMAGE_SIZES.FULL,
-      has_breeds: 1,
     },
   });
   return response.data;
@@ -86,5 +90,10 @@ export const getFavorites = async (): Promise<FavoriteCat[]> => {
 
 export const removeFavorite = async (favoriteId: number): Promise<{ message: string }> => {
   const response = await catApi.delete(`/favourites/${favoriteId}`);
+  return response.data;
+};
+
+export const fetchBreeds = async (): Promise<Breed[]> => {
+  const response = await catApi.get('/breeds');
   return response.data;
 };

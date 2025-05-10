@@ -6,7 +6,7 @@ import CatImage from './CatImage';
 import { ErrorMessage } from './common/ErrorMessage';
 import { type Breed } from '../types';
 import { BREED_DETAILS } from '../constants';
-
+import { Link } from 'react-router-dom';
 interface CatDetailsProps {
   catId: string;
   canBookmark?: boolean;
@@ -33,7 +33,10 @@ const CatDetails: React.FC<CatDetailsProps> = ({ catId, canBookmark = true }) =>
         </div>
       </div>
 
-      <div className="md:w-1/2 flex flex-col gap-6 p-6 overflow-y-auto max-h-[50vh] md:max-h-[80vh]">
+      <div
+        className="md:w-1/2 flex flex-col gap-6 p-6 overflow-y-auto 
+        max-h-[50vh] md:max-h-[80vh]"
+      >
         <div>
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             {breed ? breed.name : 'Cat Details'}
@@ -97,6 +100,20 @@ const CatDetails: React.FC<CatDetailsProps> = ({ catId, canBookmark = true }) =>
                 />
               </a>
             )}
+            <div className="mt-6">
+              <Link
+                to={`/breeds/${breed.id}`}
+                className="text-pink-600 hover:text-pink-800 font-medium"
+              >
+                See more {breed.name} cats
+              </Link>
+            </div>
+          </div>
+        )}
+        {!breed && (
+          <div className="mt-6 text-gray-500">
+            It looks like this is one of the rarest cats in the world! We do not have any
+            information about it. 🐈
           </div>
         )}
       </div>

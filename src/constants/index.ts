@@ -4,7 +4,7 @@ import { type BreedDetailItem, type NavigationItem } from '../types';
 export const API_CONFIG = {
   BASE_URL: 'https://api.thecatapi.com/v1',
   API_KEY: import.meta.env.VITE_CAT_API_KEY,
-  DEFAULT_LIMIT: 10,
+  DEFAULT_LIMIT: 12,
   DEFAULT_PAGE: 0,
   IMAGE_SIZES: {
     PREVIEW: 'small', // 250x250 (for grid)
@@ -22,6 +22,8 @@ export const QUERY_KEYS = {
   RANDOM_CATS: 'randomCats',
   CAT: 'cat',
   FAVORITES: 'favorites',
+  BREEDS: 'breeds',
+  BREED_CATS: 'breedCats',
 } as const;
 
 export const ANIMATION_DELAYS = {
@@ -33,6 +35,7 @@ export const ROUTES = {
   HOME: '/',
   CAT: '/cat/:id',
   BREEDS: '/breeds',
+  BREED_DETAILS: '/breeds/:breedId',
   FAVORITES: '/favorites',
   FAVORITE_CAT: '/favorites/:id',
 } as const;
