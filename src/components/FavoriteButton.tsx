@@ -1,29 +1,27 @@
 import React, { memo } from 'react';
 import { IconHeart } from '@tabler/icons-react';
-import { useAddFavorite, useRemoveFavorite, useGetFavorites } from '../hooks/useCatApi';
+import { useFavorites } from '../hooks/useFavorites';
 
 interface FavoriteButtonProps {
   imageId: string;
 }
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = memo(({ imageId }) => {
-  const { data: favorites = [] } = useGetFavorites();
-  const addFavoriteMutation = useAddFavorite();
-  const removeFavoriteMutation = useRemoveFavorite();
+  const { isFavorite, getFavoriteId, addFavorite, removeFavorite, isLoading, mutationPending } =
+    useFavorites();
 
-  const isFavorite = favorites.some((favorite) => favorite.image_id === imageId);
-  const favoriteId = favorites.find((favorite) => favorite.image_id === imageId)?.id;
-  const isLoading = addFavoriteMutation.isPending || removeFavoriteMutation.isPending;
+  const isFavorited = isFavorite(imageId);
+  const favoriteId = getFavoriteId(imageId);
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
     if (isLoading) return;
 
-    if (isFavorite && favoriteId) {
-      removeFavoriteMutation.mutate(favoriteId);
+    if (isFavorited && favoriteId) {
+      removeFavorite(favoriteId);
     } else {
-      addFavoriteMutation.mutate(imageId);
+      addFavorite(imageId);
     }
   };
 
@@ -32,15 +30,15 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = memo(({ imageId }) => {
       onClick={handleToggleFavorite}
       className="p-2 bg-white/80 hover:bg-white rounded-full shadow transition-colors 
       relative cursor-pointer"
-      aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-      disabled={isLoading}
+      aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+      disabled={isLoading || mutationPending}
     >
       <IconHeart
         size={32}
-        fill={isFavorite ? 'currentColor' : 'none'}
+        fill={isFavorited ? 'currentColor' : 'none'}
         className={`
-          ${isFavorite ? 'text-pink-500' : 'text-gray-500'}
-          ${isLoading ? 'animate-heartbeat' : ''}
+          ${isFavorited ? 'text-pink-500' : 'text-gray-500'}
+          ${mutationPending ? 'animate-heartbeat' : ''}
           transition-transform origin-center
         `}
       />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useGetFavorites } from '../hooks/useCatApi';
+import { useFavorites } from '../hooks/useFavorites';
 import Loading from '../components/common/Loading';
 import CatModal from '../components/CatModal';
 import CatImage from '../components/CatImage';
@@ -8,7 +8,7 @@ import CatImage from '../components/CatImage';
 const Favorites: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id?: string }>();
-  const { data: favorites = [], isLoading } = useGetFavorites();
+  const { favorites, isLoading } = useFavorites();
 
   const handleCloseModal = () => {
     navigate('/favorites');
