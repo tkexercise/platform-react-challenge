@@ -43,7 +43,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, className = ''
     >
       <div
         className={`bg-white rounded-xl shadow-2xl max-w-4xl w-full 
-            max-h-[90vh] overflow-hidden relative ${className}`}
+            max-h-[90vh] overflow-hidden relative flex flex-col ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         <button

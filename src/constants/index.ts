@@ -13,7 +13,7 @@ export const API_CONFIG = {
 } as const;
 
 export const QUERY_CONFIG = {
-  STALE_TIME: 0, // 5 minutes
+  STALE_TIME: 1000 * 60 * 5, // 5 minutes
   RETRY_COUNT: 1,
   REFETCH_ON_WINDOW_FOCUS: false,
 } as const;
@@ -74,16 +74,6 @@ export const NAVIGATION: NavigationItem[] = [
     label: 'Favorites',
   },
 ];
-
-// This can go, no need to have it in constants
-export const UI = {
-  LOADING_DOT_SIZE: 'w-4 h-4',
-  LOADING_DOT_COLORS: {
-    PRIMARY: 'bg-action',
-    SECONDARY: 'bg-action/60',
-    TERTIARY: 'bg-action/30',
-  },
-} as const;
 
 export const STORAGE_KEYS = {
   USER_ID: 'user_id',

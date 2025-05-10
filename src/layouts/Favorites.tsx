@@ -25,10 +25,7 @@ const Favorites: React.FC = () => {
           <p className="text-gray-500">No favorite cats yet.</p>
         </div>
       ) : (
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 
-            xl:[&>div:nth-last-child(2):nth-child(4n+1)]:col-start-2 gap-6"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {favorites.map((favorite) => (
             <div
               key={favorite.id}

@@ -3,7 +3,7 @@ import { IconCopy, IconExternalLink } from '@tabler/icons-react';
 import Loading from './common/Loading';
 import { useCatById } from '../hooks/useCatApi';
 import CatImage from './CatImage';
-import { ErrorMessage } from './common/ErrorMessage';
+import ErrorMessage from './common/ErrorMessage';
 import { type Breed } from '../types';
 import { BREED_DETAILS } from '../constants';
 import { Link } from 'react-router-dom';
@@ -22,12 +22,17 @@ const CatDetails: React.FC<CatDetailsProps> = ({ catId, canBookmark = true }) =>
   }
 
   if (error || !cat) {
-    return <ErrorMessage message="Error loading cat details. Please try again." />;
+    return (
+      <ErrorMessage
+        message="Error loading cat details. Please try again or select a different cat."
+        className="mt-6"
+      />
+    );
   }
 
   return (
     <div className="flex flex-col md:flex-row gap-6">
-      <div className="md:w-1/2">
+      <div className="md:w-1/2 group has-close">
         <div className="h-96 md:h-full rounded-lg overflow-hidden">
           <CatImage cat={cat} className="h-full" />
         </div>

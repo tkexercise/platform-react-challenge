@@ -6,7 +6,7 @@ interface ErrorMessageProps {
   className?: string;
 }
 
-export const ErrorMessage: React.FC<ErrorMessageProps> = ({
+const ErrorMessage: React.FC<ErrorMessageProps> = ({
   message = 'Failed to load data. Please refresh the page.',
   className,
 }) => {
@@ -21,3 +21,5 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = ({
     </div>
   );
 };
+
+export default ErrorMessage;

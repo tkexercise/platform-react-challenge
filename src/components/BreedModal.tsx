@@ -5,15 +5,17 @@ import Loading from './common/Loading';
 import CatImage from './CatImage';
 import { type Breed, type Cat } from '../types';
 import Badge from './common/Badge';
+import ErrorMessage from './common/ErrorMessage';
+import { useCatsByBreed } from '../hooks/useCatApi';
 
 interface BreedModalProps {
   breed: Breed | undefined;
-  cats: Cat[];
-  isLoading: boolean;
   onClose: () => void;
 }
 
-const BreedModal: React.FC<BreedModalProps> = ({ breed, cats, isLoading, onClose }) => {
+const BreedModal: React.FC<BreedModalProps> = ({ breed, onClose }) => {
+  const { data: cats = [], isLoading, isError } = useCatsByBreed(breed?.id || null);
+
   return (
     <Modal isOpen={!!breed} onClose={onClose}>
       <div className="p-6 border-b">
@@ -36,10 +38,10 @@ const BreedModal: React.FC<BreedModalProps> = ({ breed, cats, isLoading, onClose
         )}
       </div>
 
-      <div className="p-6">
+      <div className="p-6 overflow-y-auto">
         <h3 className="text-xl font-semibold mb-4">{breed ? `${breed.name} Cats` : 'Cats'}</h3>
-
-        {isLoading ? (
+        {isError && <ErrorMessage />}
+        {!isError && isLoading ? (
           <Loading />
         ) : cats.length === 0 ? (
           <div className="text-center py-10">
@@ -57,7 +59,7 @@ const BreedModal: React.FC<BreedModalProps> = ({ breed, cats, isLoading, onClose
                   to={`/cat/${cat.id}`}
                   className="block h-64 hover:scale-105 transition-all duration-300"
                 >
-                  <CatImage cat={cat} className="h-full" showFavoriteButton={false} />
+                  <CatImage cat={cat} className="h-full" />
                 </Link>
               </div>
             ))}

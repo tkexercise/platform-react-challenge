@@ -21,7 +21,7 @@ const Header: React.FC = () => {
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `px-4 py-2 rounded-lg transition-colors text-2xl ${
+                  `px-4 py-2 rounded-lg transition-colors text-2xl font-semibold ${
                     isActive && 'bg-white text-action'
                   }`
                 }

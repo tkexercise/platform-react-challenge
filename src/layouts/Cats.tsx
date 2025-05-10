@@ -5,8 +5,8 @@ import { useGetCats } from '../hooks/useCatApi';
 import CatModal from '../components/CatModal';
 import Loading from '../components/common/Loading';
 import { type Cat } from '../types';
-import { Button } from '../components/common/Button';
-import { ErrorMessage } from '../components/common/ErrorMessage';
+import Button from '../components/common/Button';
+import ErrorMessage from '../components/common/ErrorMessage';
 import CatImage from '../components/CatImage';
 
 const Cats: React.FC = () => {
@@ -44,10 +44,7 @@ const Cats: React.FC = () => {
         <Loading />
       ) : (
         <>
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 
-            xl:[&>div:nth-last-child(2):nth-child(4n+1)]:col-start-2 gap-6"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {cats.map((cat: Cat, index: number) => (
               <div
                 className="relative overflow-hidden rounded-lg shadow-lg transition-all 
@@ -59,7 +56,7 @@ const Cats: React.FC = () => {
                   to={`/cat/${cat.id}`}
                   className="block h-64 hover:scale-105 transition-all duration-300"
                 >
-                  <CatImage cat={cat} className="h-full" showFavoriteButton={false} />
+                  <CatImage cat={cat} className="h-full" />
                 </Link>
               </div>
             ))}
