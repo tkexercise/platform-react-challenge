@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
-import { type Cat } from '../types';
-import { API_CONFIG } from '../constants';
+import { type Cat, type FavoriteCat } from '../types';
+import { API_CONFIG, STORAGE_KEYS } from '../constants';
+import { createId } from '@paralleldrive/cuid2';
 
 class CatApiError extends Error {
   public status?: number;
@@ -13,6 +14,14 @@ class CatApiError extends Error {
     this.code = code;
   }
 }
+const getUserId = (): string => {
+  let userId = localStorage.getItem(STORAGE_KEYS.USER_ID);
+  if (!userId) {
+    userId = createId();
+    localStorage.setItem(STORAGE_KEYS.USER_ID, userId);
+  }
+  return userId;
+};
 
 const catApi = axios.create({
   baseURL: API_CONFIG.BASE_URL,
@@ -55,5 +64,27 @@ export const fetchCatById = async (id: string): Promise<Cat> => {
       has_breeds: 1,
     },
   });
+  return response.data;
+};
+
+export const addFavorite = async (imageId: string): Promise<FavoriteCat> => {
+  const response = await catApi.post('/favourites', {
+    image_id: imageId,
+    sub_id: getUserId(),
+  });
+  return response.data;
+};
+
+export const getFavorites = async (): Promise<FavoriteCat[]> => {
+  const response = await catApi.get('/favourites', {
+    params: {
+      sub_id: getUserId(),
+    },
+  });
+  return response.data;
+};
+
+export const removeFavorite = async (favoriteId: number): Promise<{ message: string }> => {
+  const response = await catApi.delete(`/favourites/${favoriteId}`);
   return response.data;
 };

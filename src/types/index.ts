@@ -1,9 +1,9 @@
 export interface Cat {
   id: string;
   url: string;
-  width: number;
-  height: number;
-  breeds: Breed[];
+  width?: number;
+  height?: number;
+  breeds?: Breed[];
 }
 
 export interface Breed {
@@ -29,4 +29,15 @@ export interface NavigationItem {
   to: string;
   label: string;
   end?: boolean;
+}
+
+export interface FavoriteCat {
+  id: number;
+  image_id: string;
+  sub_id: string;
+  created_at: string;
+  image: {
+    id: string;
+    url: string;
+  };
 }

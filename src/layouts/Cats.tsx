@@ -44,15 +44,19 @@ const Cats: React.FC = () => {
         <Loading />
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:[&>div:nth-last-child(2):nth-child(4n+1)]:col-start-2 gap-6">
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 
+            xl:[&>div:nth-last-child(2):nth-child(4n+1)]:col-start-2 gap-6"
+          >
             {cats.map((cat: Cat, index: number) => (
               <div
-                className="relative overflow-hidden rounded-lg shadow-lg transition-all hover:shadow-xl bg-white"
+                className="relative overflow-hidden rounded-lg shadow-lg transition-all 
+                hover:shadow-xl bg-white"
                 onClick={() => handleOpenModal(cat.id)}
                 key={`${cat.id}-${index}`}
               >
                 <Link to={`/cat/${cat.id}`} className="block h-64">
-                  <CatImage cat={cat} className="h-full" showBreedName={false} />
+                  <CatImage cat={cat} className="h-full" showFavoriteButton={false} />
                 </Link>
               </div>
             ))}
@@ -60,7 +64,12 @@ const Cats: React.FC = () => {
 
           {hasNextPage && (
             <div className="mt-10 flex justify-center">
-              <Button onClick={handleLoadMore} disabled={isFetchingNextPage} variant="action">
+              <Button
+                onClick={handleLoadMore}
+                disabled={isFetchingNextPage}
+                variant="action"
+                className="bg-action text-white hover:bg-action/80"
+              >
                 {isFetchingNextPage ? 'Loading more...' : 'Load More Cats'}
               </Button>
             </div>

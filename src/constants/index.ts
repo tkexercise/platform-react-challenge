@@ -13,7 +13,7 @@ export const API_CONFIG = {
 } as const;
 
 export const QUERY_CONFIG = {
-  STALE_TIME: 5 * 60 * 1000, // 5 minutes
+  STALE_TIME: 0, // 5 minutes
   RETRY_COUNT: 1,
   REFETCH_ON_WINDOW_FOCUS: false,
 } as const;
@@ -21,6 +21,7 @@ export const QUERY_CONFIG = {
 export const QUERY_KEYS = {
   RANDOM_CATS: 'randomCats',
   CAT: 'cat',
+  FAVORITES: 'favorites',
 } as const;
 
 export const ANIMATION_DELAYS = {
@@ -33,6 +34,7 @@ export const ROUTES = {
   CAT: '/cat/:id',
   BREEDS: '/breeds',
   FAVORITES: '/favorites',
+  FAVORITE_CAT: '/favorites/:id',
 } as const;
 
 export const BREED_DETAILS: BreedDetailItem[] = [
@@ -69,6 +71,8 @@ export const NAVIGATION: NavigationItem[] = [
     label: 'Favorites',
   },
 ];
+
+// This can go, no need to have it in constants
 export const UI = {
   LOADING_DOT_SIZE: 'w-4 h-4',
   LOADING_DOT_COLORS: {
@@ -76,4 +80,8 @@ export const UI = {
     SECONDARY: 'bg-action/60',
     TERTIARY: 'bg-action/30',
   },
+} as const;
+
+export const STORAGE_KEYS = {
+  USER_ID: 'user_id',
 } as const;

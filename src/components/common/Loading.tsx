@@ -9,10 +9,12 @@ const Loading: React.FC = () => {
           className={`${UI.LOADING_DOT_SIZE} ${UI.LOADING_DOT_COLORS.PRIMARY} rounded-full mx-1`}
         ></span>
         <span
-          className={`${UI.LOADING_DOT_SIZE} ${UI.LOADING_DOT_COLORS.SECONDARY} rounded-full mx-1 animate-bounce delay-100`}
+          className={`${UI.LOADING_DOT_SIZE} ${UI.LOADING_DOT_COLORS.SECONDARY} 
+          rounded-full mx-1 animate-bounce delay-100`}
         ></span>
         <span
-          className={`${UI.LOADING_DOT_SIZE} ${UI.LOADING_DOT_COLORS.TERTIARY} rounded-full mx-1 animate-bounce delay-200`}
+          className={`${UI.LOADING_DOT_SIZE} ${UI.LOADING_DOT_COLORS.TERTIARY} 
+          rounded-full mx-1 animate-bounce delay-200`}
         ></span>
       </div>
     </div>

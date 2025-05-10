@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Cats from './layouts/Cats';
 import { QUERY_CONFIG, ROUTES } from './constants';
 import Header from './components/common/Header';
+import Favorites from './layouts/Favorites';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,6 +27,8 @@ const App: React.FC = () => {
               <Route path={ROUTES.HOME} element={<Cats />} />
               <Route path={ROUTES.CAT} element={<Cats />} />
 
+              <Route path={ROUTES.FAVORITES} element={<Favorites />} />
+              <Route path={ROUTES.FAVORITE_CAT} element={<Favorites />} />
               <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
             </Routes>
           </main>

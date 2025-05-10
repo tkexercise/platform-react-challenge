@@ -5,14 +5,15 @@ import CatDetails from './CatDetails';
 interface CatModalProps {
   catId: string | null;
   onClose: () => void;
+  canBookmark?: boolean;
 }
 
-const CatModal: React.FC<CatModalProps> = ({ catId, onClose }) => {
+const CatModal: React.FC<CatModalProps> = ({ catId, onClose, canBookmark = true }) => {
   const isOpen = !!catId;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      {catId && <CatDetails catId={catId} />}
+      {catId && <CatDetails catId={catId} canBookmark={canBookmark} />}
     </Modal>
   );
 };

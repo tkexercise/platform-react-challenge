@@ -9,9 +9,10 @@ import { BREED_DETAILS } from '../constants';
 
 interface CatDetailsProps {
   catId: string;
+  canBookmark?: boolean;
 }
 
-const CatDetails: React.FC<CatDetailsProps> = ({ catId }) => {
+const CatDetails: React.FC<CatDetailsProps> = ({ catId, canBookmark = true }) => {
   const { data: cat, isLoading, error } = useCatById(catId);
   const [copied, setCopied] = useState(false);
   const breed: Breed | undefined = cat?.breeds?.[0];
@@ -28,7 +29,7 @@ const CatDetails: React.FC<CatDetailsProps> = ({ catId }) => {
     <div className="flex flex-col md:flex-row gap-6">
       <div className="md:w-1/2">
         <div className="h-96 md:h-full rounded-lg overflow-hidden">
-          <CatImage cat={cat} className="h-full" showBreedName={false} />
+          <CatImage cat={cat} className="h-full" />
         </div>
       </div>
 
@@ -37,27 +38,32 @@ const CatDetails: React.FC<CatDetailsProps> = ({ catId }) => {
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             {breed ? breed.name : 'Cat Details'}
           </h2>
-
-          <button
-            onClick={() => {
-              try {
-                navigator.clipboard.writeText(window.location.href);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-              } catch {
-                // do nothing or send to a third party service to log the error
-              }
-            }}
-            className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 relative cursor-pointer group"
-          >
-            <IconCopy size={16} className="mr-2 transition-transform group-hover:scale-110" />
-            <span>Copy link to share</span>
-            {copied && (
-              <span className="absolute left-1/2 -top-8 -translate-x-1/2 bg-gray-700 text-white text-sm rounded-md px-3 py-1 z-10">
-                Copied!
-              </span>
-            )}
-          </button>
+          {canBookmark && (
+            <button
+              onClick={() => {
+                try {
+                  navigator.clipboard.writeText(window.location.href);
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 2000);
+                } catch {
+                  // do nothing or send to a third party service to log the error
+                }
+              }}
+              className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 
+              relative cursor-pointer group"
+            >
+              <IconCopy size={16} className="mr-2 transition-transform group-hover:scale-110" />
+              <span>Copy link to share</span>
+              {copied && (
+                <span
+                  className="absolute left-1/2 -top-8 -translate-x-1/2 bg-gray-700 
+                text-white text-sm rounded-md px-3 py-1 z-10"
+                >
+                  Copied!
+                </span>
+              )}
+            </button>
+          )}
         </div>
 
         {breed && (
@@ -81,7 +87,8 @@ const CatDetails: React.FC<CatDetailsProps> = ({ catId }) => {
                 href={breed.wikipedia_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-blue-600 hover:text-blue-800 hover:underline group"
+                className="inline-flex items-center text-blue-600 hover:text-blue-800 
+                hover:underline group"
               >
                 <span>Read more on Wikipedia</span>
                 <IconExternalLink
