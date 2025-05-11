@@ -3,7 +3,7 @@ import { type Breed, type Cat, type FavoriteCat } from '../types';
 import { API_CONFIG, STORAGE_KEYS } from '../constants';
 import { createId } from '@paralleldrive/cuid2';
 
-class CatApiError extends Error {
+export class CatApiError extends Error {
   public status?: number;
   public code?: string;
 
@@ -14,6 +14,7 @@ class CatApiError extends Error {
     this.code = code;
   }
 }
+
 const getUserId = (): string => {
   let userId = localStorage.getItem(STORAGE_KEYS.USER_ID);
   if (!userId) {

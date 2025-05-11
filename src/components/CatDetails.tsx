@@ -98,7 +98,7 @@ const CatDetails: React.FC<CatDetailsProps> = ({ catId, canBookmark = true }) =>
                 className="inline-flex items-center text-blue-600 hover:text-blue-800 
                 hover:underline group"
               >
-                <span>Read more on Wikipedia</span>
+                Read more on Wikipedia
                 <IconExternalLink
                   size={16}
                   className="ml-2 transition-transform group-hover:translate-x-1"

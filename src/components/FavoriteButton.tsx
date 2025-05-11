@@ -5,7 +5,6 @@ import { useFavorites } from '../hooks/useFavorites';
 interface FavoriteButtonProps {
   imageId: string;
 }
-
 const FavoriteButton: React.FC<FavoriteButtonProps> = memo(({ imageId }) => {
   const { isFavorite, getFavoriteId, addFavorite, removeFavorite, isLoading, mutationPending } =
     useFavorites();

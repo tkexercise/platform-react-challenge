@@ -1,14 +1,13 @@
 import { type BreedDetailItem, type NavigationItem } from '../types';
 
-// API Configuration
 export const API_CONFIG = {
   BASE_URL: 'https://api.thecatapi.com/v1',
   API_KEY: import.meta.env.VITE_CAT_API_KEY,
   DEFAULT_LIMIT: 12,
   DEFAULT_PAGE: 0,
   IMAGE_SIZES: {
-    PREVIEW: 'small', // 250x250 (for grid)
-    FULL: 'full', // Original size (for modal/details)
+    PREVIEW: 'small',
+    FULL: 'full',
   },
 } as const;
 
@@ -24,11 +23,6 @@ export const QUERY_KEYS = {
   FAVORITES: 'favorites',
   BREEDS: 'breeds',
   BREED_CATS: 'breedCats',
-} as const;
-
-export const ANIMATION_DELAYS = {
-  DELAY_100: '100ms',
-  DELAY_200: '200ms',
 } as const;
 
 export const ROUTES = {

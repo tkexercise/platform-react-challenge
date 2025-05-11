@@ -5,6 +5,7 @@ interface FavoritesContextType {
   favorites: FavoriteCat[];
   isLoading: boolean;
   mutationLoading: boolean;
+  mutationPending: boolean;
   isError: boolean;
   addFavorite: (imageId: string) => Promise<void>;
   removeFavorite: (favoriteId: number) => Promise<void>;

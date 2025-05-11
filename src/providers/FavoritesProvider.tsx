@@ -25,6 +25,7 @@ export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({ children }
       favorites,
       isLoading,
       mutationLoading: addFavoriteMutation.isPending || removeFavoriteMutation.isPending,
+      mutationPending: addFavoriteMutation.isPending || removeFavoriteMutation.isPending,
       isError,
       addFavorite: async (imageId: string) => {
         await addFavoriteMutation.mutateAsync(imageId);
