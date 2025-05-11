@@ -5,16 +5,21 @@ import BreedCard from '../components/BreedCard';
 import BreedModal from '../components/BreedModal';
 import Loading from '../components/common/Loading';
 import ErrorMessage from '../components/common/ErrorMessage';
+import CatModal from '../components/CatModal';
 
 const Breeds: React.FC = () => {
   const navigate = useNavigate();
-  const { breedId } = useParams<{ breedId?: string }>();
+  const { breedId, catId } = useParams<{ breedId?: string; catId?: string }>();
 
   const { data: breeds = [], isLoading: isLoadingBreeds, isError } = useBreeds();
   const selectedBreed = breeds.find((breed) => breed.id === breedId);
 
   const handleCloseBreedModal = () => {
     navigate('/breeds');
+  };
+
+  const handleCloseCatModal = () => {
+    navigate(`/breeds/${breedId}`);
   };
 
   if (isError) {
@@ -35,7 +40,8 @@ const Breeds: React.FC = () => {
         </div>
       )}
 
-      {breedId && <BreedModal breed={selectedBreed} onClose={handleCloseBreedModal} />}
+      {breedId && !catId && <BreedModal breed={selectedBreed} onClose={handleCloseBreedModal} />}
+      {catId && <CatModal catId={catId} onClose={handleCloseCatModal} />}
     </div>
   );
 };

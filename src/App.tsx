@@ -33,6 +33,7 @@ const App: React.FC = () => {
 
                   <Route path={ROUTES.BREEDS} element={<Breeds />} />
                   <Route path={ROUTES.BREED_DETAILS} element={<Breeds />} />
+                  <Route path={ROUTES.BREED_CATS} element={<Breeds />} />
 
                   <Route path={ROUTES.FAVORITES} element={<Favorites />} />
                   <Route path={ROUTES.FAVORITE_CAT} element={<Favorites />} />

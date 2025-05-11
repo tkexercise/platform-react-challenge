@@ -5,7 +5,7 @@ import { useCatById } from '../hooks/useCatApi';
 import CatImage from './CatImage';
 import ErrorMessage from './common/ErrorMessage';
 import { type Breed } from '../types';
-import { BREED_DETAILS } from '../constants';
+import { BREED_DETAILS, ROUTES } from '../constants';
 import { Link } from 'react-router-dom';
 interface CatDetailsProps {
   catId: string;
@@ -50,7 +50,8 @@ const CatDetails: React.FC<CatDetailsProps> = ({ catId, canBookmark = true }) =>
             <button
               onClick={() => {
                 try {
-                  navigator.clipboard.writeText(window.location.href);
+                  const catDetailsUrl = `${window.location.origin}${ROUTES.CAT.replace(':id', catId)}`;
+                  navigator.clipboard.writeText(catDetailsUrl);
                   setCopied(true);
                   setTimeout(() => setCopied(false), 2000);
                 } catch {

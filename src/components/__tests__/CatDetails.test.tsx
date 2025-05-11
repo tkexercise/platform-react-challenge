@@ -6,6 +6,7 @@ import CatDetails from '../CatDetails';
 import { FavoritesProvider } from '../../providers/FavoritesProvider';
 import { server } from '../../testing/mocks/server';
 import { http } from 'msw';
+import { ROUTES } from '../../constants';
 
 const createTestQueryClient = () =>
   new QueryClient({
@@ -80,7 +81,9 @@ describe('CatDetails', () => {
     const shareButton = await screen.findByText('Copy link to share');
     fireEvent.click(shareButton);
 
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(window.location.href);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
+      `${window.location.origin}${ROUTES.CAT.replace(':id', 'test-cat-id')}`
+    );
     expect(screen.getByText('Copied!')).toBeInTheDocument();
   });
 

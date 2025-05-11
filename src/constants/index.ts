@@ -30,6 +30,7 @@ export const ROUTES = {
   CAT: '/cat/:id',
   BREEDS: '/breeds',
   BREED_DETAILS: '/breeds/:breedId',
+  BREED_CATS: '/breeds/:breedId/cats/:catId',
   FAVORITES: '/favorites',
   FAVORITE_CAT: '/favorites/:id',
 } as const;

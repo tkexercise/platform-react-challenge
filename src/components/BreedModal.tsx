@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { type Breed } from '../types';
+import { useCatsByBreed } from '../hooks/useCatApi';
 import Modal from './common/Modal';
 import Loading from './common/Loading';
-import CatImage from './CatImage';
-import { type Breed, type Cat } from '../types';
 import Badge from './common/Badge';
 import ErrorMessage from './common/ErrorMessage';
-import { useCatsByBreed } from '../hooks/useCatApi';
+import CatList from './CatList';
 
 interface BreedModalProps {
   breed: Breed | undefined;
@@ -48,22 +47,11 @@ const BreedModal: React.FC<BreedModalProps> = ({ breed, onClose }) => {
             <p className="text-gray-500">No cats found for this breed.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {cats.map((cat: Cat, index: number) => (
-              <div
-                className="relative overflow-hidden rounded-lg shadow-lg transition-all 
-                hover:shadow-xl bg-white"
-                key={`${cat.id}-${index}`}
-              >
-                <Link
-                  to={`/cat/${cat.id}`}
-                  className="block h-64 hover:scale-105 transition-all duration-300"
-                >
-                  <CatImage cat={cat} className="h-full" />
-                </Link>
-              </div>
-            ))}
-          </div>
+          <CatList
+            cats={cats}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            linkPath={`/breeds/${breed?.id}/cats/`}
+          />
         )}
       </div>
     </Modal>
