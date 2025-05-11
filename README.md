@@ -1,54 +1,139 @@
-# React + TypeScript + Vite
+<div align="center">
+  <img src="src/assets/logo.svg" alt="CatLover Logo" width="45" height="45" />
+</div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1 align="center">CatLover App</h1>
 
-Currently, two official plugins are available:
+A React application for to browse random cats, favorite, and learn about different cat breeds.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Browse and view cat images
+- Explore different cat breeds and their details
+- Save your favorite cats
+- Responsive design
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## API Integration
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+This application uses The Cat API (https://thecatapi.com/) to fetch:
+
+- Random cat images
+- Cat breed information
+- Favorite cats management
+
+To run the application:
+
+1. Sign up for a free API key at https://thecatapi.com/
+2. Copy `.env.sample` to `.env`:
+
+```bash
+cp .env.sample .env
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Add your API key to the `.env` file:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+VITE_CAT_API_KEY=your_api_key_here
+```
+
+## Tech Stack
+
+- React 19
+- TypeScript
+- Vite
+- React Router v7
+- React Query
+- TailwindCSS
+- Vitest for testing
+- ESLint & Prettier for code quality
+
+## Prerequisites
+
+- Node.js (version specified in .nvmrc)
+- npm or yarn
+
+## Getting Started
+
+1. Clone the repository and go to project folder:
+
+```bash
+git clone [repository-url]
+cd platform-react-challenge
+```
+
+2. Install dependencies:
+   > [!INFO]  
+   > We suggest to use [nvm](https://github.com/nvm-sh/nvm) for better compatibility and run `nvm use` before installing
+
+```bash
+npm install
+```
+
+3. Start the development server:
+
+```bash
+npm run dev
+```
+
+The application should be available at `http://localhost:5173`
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run test` - Run tests
+- `npm run test:coverage` - Run tests with coverage
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript type checking
+
+## Project Structure
+
+```
+src/
+├── assets/        # Static assets
+├── components/    # Reusable UI components
+├── constants/     # Application constants
+├── contexts/      # React contexts
+├── hooks/         # Custom React hooks
+├── layouts/       # Page layouts
+├── providers/     # Context providers
+├── services/      # API services
+├── testing/       # Test configuration
+└── types/         # TypeScript type definitions
+```
+
+## Testing
+
+The project uses Vitest for testing. Run tests with:
+
+```bash
+npm run test
+```
+
+For test coverage:
+
+```bash
+npm run test:coverage
+```
+
+> [INFO]
+> Github actions are used to run the tests with each PR
+
+### Adding Tests
+
+To add new tests:
+
+1. Create test files with the `.test.ts` or `.test.tsx` extension
+2. Place test files next to the files they test or in a `__tests__` directory
+
+For testing API calls, use the `MSW` package and mock the API responses. Feel free to check existing tests if you are not familiar with it or the package's [documentation](https://mswjs.io/docs). Please keep global endpoints mocking into the [./src/testing/mocks/handlers.ts](./src/testing/mocks/handlers.ts) file
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin amazing-feature`)
+5. Open a Pull Request
+6. GitHub Actions workflow runs `lint`, `type-check`, and `test` on every PR
